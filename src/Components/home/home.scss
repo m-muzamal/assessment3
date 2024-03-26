@@ -1,0 +1,28 @@
+@import "../../styleSheet.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  padding: 5rem 0;
+  width: 80%;
+  @include xl {
+    width: 90%;
+  }
+  .title {
+    width: 100%;
+    span {
+      color: var(--color-primary);
+    }
+  }
+  .categories {
+    display: flex;
+    justify-content: center;
+    .btns {
+      display: flex;
+      //   border: 2px solid red;
+      gap: 0.7rem;
+      overflow: scroll;
+    }
+  }
+}

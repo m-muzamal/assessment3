@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Manrope:wght@200..800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+:root {
+  --color-primary: rgb(237, 99, 29);
+  --color-black: rgb(29, 38, 42);
+  --color-secondary: rgb(247, 187, 93);
+  --transition: all 300ms ease;
+}
+
+body {
+  height: 100%;
+  /* width: 100%; */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: "Inter", sans-serif;
+  /* font-size: 100%; */
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  /* padding: 0 10rem; */
+}
+
+h3 {
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+h4 {
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.3;
+}
+h5 {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+p {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.3;
+  opacity: 0.8;
+}
+
+button {
+  padding: 1rem;
+  width: 180px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid var(--color-black);
+  border-radius: 8px;
+  background-color: transparent;
+  text-wrap: nowrap;
+}
+button:hover {
+  color: white;
+  background-color: var(--color-primary);
+}
+
+.line {
+  height: 10px;
+  width: 100%;
+  margin-top: 1rem;
+  background-color: var(--color-secondary);
+}
