@@ -15,6 +15,7 @@ const Footer = () => {
           name="email"
           id="email"
           placeholder="Enter your email"
+          required
         />
         <button className="btn-primary">Subscribe</button>
       </form>

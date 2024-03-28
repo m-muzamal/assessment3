@@ -16,7 +16,9 @@ const Nav = () => {
     const handleScroll = () => {
       setScroll(window.scrollY);
     };
+
     window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -57,6 +59,7 @@ const Nav = () => {
             </ul>
           )}
         </li>
+
         <li className="search">
           <input
             type="text"

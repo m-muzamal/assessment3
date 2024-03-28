@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./home.scss";
 import Articles from "../articles/Articles";
 import img from "../../assets/img.jpg";
@@ -9,11 +9,13 @@ import {
 } from "../../Redux/apiSlice/apiSlice";
 
 const Home = () => {
-  const [sorted, setSorted] = useState();
+  const [sorted, setSorted] = useState("publishedAt");
   const [data3, setData3] = useState();
-  const { data: data1 } = useGetApi1Query();
-  const { data: data2 } = useGetApi2Query();
-  const { data: api3 } = useGetApi3Query();
+  const { data: data1 } = useGetApi1Query(sorted);
+  const { data: data2 } = useGetApi2Query(sorted);
+  const { data: api3 } = useGetApi3Query(
+    sorted === "publishedAt" ? "newest" : "oldest"
+  );
 
   useEffect(() => {
     if (api3?.response) {
@@ -29,8 +31,8 @@ const Home = () => {
     }
   }, [api3]);
 
-  const handleSort = (by, url) => {
-    setSorted(by + url);
+  const handleSort = (by) => {
+    setSorted(by);
   };
 
   return (
@@ -39,34 +41,20 @@ const Home = () => {
         <h3 className="title">
           The <span>#1</span> source for Good News.
         </h3>
-        {/* <div className="categories">
+        <div className="categories">
           <div className="btns">
-            <button className="btn">Mobile</button>
-            <button className="btn">Cars</button>
-            <button className="btn">Apple</button>
-            <button className="btn">Tesla</button>
-            <button className="btn">Buisness</button>
-            <button className="btn">News</button>
+            <h2>Sort by: </h2>
+            <button className="btn" onClick={() => handleSort("author")}>
+              Author
+            </button>
+            <button className="btn" onClick={() => handleSort("publishedAt")}>
+              Time
+            </button>
           </div>
-        </div> */}
-        <Articles
-          title="NewsAPi"
-          data={data1?.articles}
-          sort={sorted}
-          sortefunc={handleSort}
-        />
-        <Articles
-          title="NewsAPI.org"
-          data={data2?.articles}
-          sort={sorted}
-          sortefunc={handleSort}
-        />
-        <Articles
-          title="The Guardian"
-          data={data3}
-          sort={sorted}
-          sortefunc={handleSort}
-        />
+        </div>
+        <Articles title="NewsAPi" data={data1?.articles} />
+        <Articles title="NewsAPI.org" data={data2?.articles} />
+        <Articles title="The Guardian" data={data3} />
       </div>
     </section>
   );
