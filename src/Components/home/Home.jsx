@@ -7,8 +7,12 @@ import {
   useGetApi2Query,
   useGetApi3Query,
 } from "../../Redux/apiSlice/apiSlice";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const { searchData } = useSelector((state) => state.data);
+  // console.log(searchData);
+
   const [sorted, setSorted] = useState("publishedAt");
   const [data3, setData3] = useState();
   const { data: data1 } = useGetApi1Query(sorted);
@@ -52,9 +56,17 @@ const Home = () => {
             </button>
           </div>
         </div>
-        <Articles title="NewsAPi" data={data1?.articles} />
-        <Articles title="NewsAPI.org" data={data2?.articles} />
-        <Articles title="The Guardian" data={data3} />
+        {searchData[0]?.length > 0 ? (
+          <>
+            <Articles title={"Search result"} data={searchData[0]} />
+          </>
+        ) : (
+          <>
+            <Articles title="NewsAPi" data={data1?.articles} />
+            <Articles title="NewsAPI.org" data={data2?.articles} />
+            <Articles title="The Guardian" data={data3} />
+          </>
+        )}
       </div>
     </section>
   );

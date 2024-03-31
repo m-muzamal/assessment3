@@ -4,14 +4,39 @@ import "./nav.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addSearch, clearSearchData } from "../../Redux/dataSclice/dataSlice";
 
 const Nav = () => {
   const [arrow, setArrow] = useState(true);
   const [scroll, setScroll] = useState();
   const [search, setSearch] = useState("");
-  const { data } = useSelector((state) => state.data);
+  const { data, searchData } = useSelector((state) => state.data);
+  // console.log(searchData);
+  const dispatch = useDispatch();
 
+  //////////////////////////////////////////
+  useEffect(() => {
+    if (search.trim() === "") {
+      if (searchData.length !== 0) {
+        dispatch(addSearch([]));
+      }
+      return;
+    }
+
+    if (data.length > 0) {
+      const filterData = data[0].filter((item) =>
+        item.title.toLowerCase().includes(search.toLowerCase())
+      );
+      dispatch(addSearch(filterData));
+    }
+
+    return () => {
+      dispatch(clearSearchData());
+    };
+  }, [data, search]);
+
+  //////////////////////////////////////////
   useEffect(() => {
     const handleScroll = () => {
       setScroll(window.scrollY);
@@ -27,7 +52,6 @@ const Nav = () => {
   //search data
   const handleSearch = (e) => {
     setSearch(e.target.value);
-    console.log(e.target.value);
   };
 
   return (
@@ -64,7 +88,8 @@ const Nav = () => {
           <input
             type="text"
             placeholder="Search"
-            onKeyDown={(e) => handleSearch(e)}
+            value={search}
+            onChange={handleSearch}
           />
           <SearchIcon />
         </li>
